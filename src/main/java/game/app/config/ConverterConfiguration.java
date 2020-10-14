@@ -13,7 +13,7 @@ public class ConverterConfiguration implements WebMvcConfigurer{
 	
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new GameRequestToGameConverter());
-		//registry.addConverter(new GameToGameResponseConverter());
+		registry.addConverter(new GameToGameResponseConverter());
 		registry.addConverter(new GenreRequestToGenreConverter());
 		
 	}

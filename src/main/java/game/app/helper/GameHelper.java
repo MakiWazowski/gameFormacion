@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import game.app.dtos.request.GameDto;
 import game.app.entities.Game;
 import game.app.entities.Genre;
+import game.app.repositories.GameRepository;
 
 @Service
 public class GameHelper {
 	
+
 	@Autowired
 	private ConversionService converter;
 	

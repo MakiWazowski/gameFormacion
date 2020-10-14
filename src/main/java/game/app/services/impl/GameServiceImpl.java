@@ -15,27 +15,36 @@ import game.app.entities.Game;
 import game.app.exceptions.GameKONotFoundException;
 import game.app.exceptions.generic.GameKOException;
 import game.app.helper.GameHelper;
-import game.app.repository.GameRepository;
+import game.app.repositories.GameRepository;
 import game.app.services.GameService;
 
 @Service
 public class GameServiceImpl implements GameService{
 
+
+	@Autowired
+	private GameRepository gameRepository;
+	
 	@Autowired
 	private GameHelper gameHelper;
 	
 	@Autowired
-	private GameRepository gameRepository;
-
-	@Autowired
 	private ConversionService converter;
+	
+	
+	
+	//PARA GUARDAR EL JUEGO EN LA BBDD
 	
 	@Override
 	public GameResponse addGame(GameDto gameDto) {
-		Game game = GameConverter.dtoToEntity(gameDto);
+		//Game game = GameConverter.dtoToEntity(gameDto);
+		Game game = gameHelper.convertGameRequestToGame(gameDto);
 		gameRepository.save(game);
 		return new GameResponse();
 	}
+	
+	
+	//PARA BUSCAR EL JUEGO POR TITULO
 	
 	@Override
 	public GameResponse getGame(String title) {
@@ -49,6 +58,7 @@ public class GameServiceImpl implements GameService{
 		}
 		
 		//return gameRequest;
+
 	}
 	
 	

@@ -18,8 +18,8 @@ public class GameDto {
 	private String title;
 	private String description;
 	private List<GenresEnum> genre = new ArrayList<>();
-	private Timestamp release;
-	private BigDecimal price;
+	private Date release;
+	private Double price;
 
 
 	

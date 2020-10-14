@@ -11,8 +11,8 @@ public class GameResponse {
 
 	private String title;
 	private String description;
-	private Timestamp release;
-	private BigDecimal price;
+	private Date release;
+	private Double price;
 	
 	public GameResponse() {
 		

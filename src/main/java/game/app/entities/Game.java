@@ -35,7 +35,7 @@ public class Game {
 	
 	//cascade para poder controlar updates,deletes...
 	@ManyToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE})
-	private List<GenresEnum> genre = new ArrayList<>();
+	private List<Genre> genres = new ArrayList<>();
 	
 	@Column(name = "RELEASE")
 	private Timestamp release;

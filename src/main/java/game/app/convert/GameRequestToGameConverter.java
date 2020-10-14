@@ -16,11 +16,6 @@ public class GameRequestToGameConverter implements Converter<GameDto,Game> {
 		game.setRelease(gameRequest.getRelease());
 		game.setPrice(gameRequest.getPrice());
 		
-		//añadir un nuevo genero
-		for(GenresEnum genre : gameRequest.getGenre()) {
-			Genre genreEntity = new Genre();
-			game.getGenre().add(genreEntity);
-		}
 		return game;
 	}
 

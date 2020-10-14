@@ -18,15 +18,9 @@ public class GameHelper {
 	public Game convertGameRequestToGame(GameDto gameRequest) {;
 	
 	Game game = converter.convert(gameRequest, Game.class);
-/*	List<Genre> genres = converter.convert(gameRequest, List<Genre.class>);
+	List<Genre> genres = gameRequest.getGenre().stream().map(g->converter.convert(g, Genre.class)).collect(Collectors.toList());
 	
-	for(GenresEnum gr : gameRequest.getGenre()) {
-		Genre genre = converter.convert(gr, Genre.class);
-		game.getGenre().add(genre);
-	}
-*/	
-	List<Genre> genres = gameRequest.getGenre().stream().map(gr-> converter(gr,Genre.Class)).collect(Collectors.toList());
-	game.getGenre().addAll(genres);
+	game.getGenres().addAll(genres);	
 	return game;
 			
 	}

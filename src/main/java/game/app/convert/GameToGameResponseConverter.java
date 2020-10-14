@@ -8,7 +8,7 @@ public class GameToGameResponseConverter implements Converter<Game,GameDto>{
 
 	@Override
 	public GameDto convert(Game source) {
-		// TODO Auto-generated method stub
+		Game game = new Game();
 		return null;
 	}
 

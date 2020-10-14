@@ -4,8 +4,6 @@ import org.springframework.core.convert.converter.Converter;
 
 import game.app.dtos.request.GameDto;
 import game.app.entities.Game;
-import game.app.entities.Genre;
-import game.app.enums.GenresEnum;
 
 public class GameRequestToGameConverter implements Converter<GameDto,Game> {
 

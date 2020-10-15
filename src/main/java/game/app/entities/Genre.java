@@ -3,6 +3,8 @@ package game.app.entities;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,8 @@ public class Genre {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "TITLE")
+	@Column(name = "GENRE")
+	@Enumerated(EnumType.STRING)
 	private GenresEnum genreName;
 	
 	//mappedby "genres" para hacer referencia a Game.java , donde hemos llamado a la lista genres

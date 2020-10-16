@@ -14,7 +14,7 @@ public interface GenreService {
 	
 	public Genre findGenreByName(GenresEnum genre);
 	
-	//PARA CARGAR LOS GENEROS 
+	//PARA CARGAR LOS GENEROS --> coge los egenros del enum y los va añadiendo a la bbdd 
 	public static CommandLineRunner loadGenres(GenreRepository genreRepo) {
 		System.out.println("Cargando con CommandLineRunner");
 		GenreRequestToGenreConverter genreEnumToGenre = new GenreRequestToGenreConverter();
@@ -29,6 +29,6 @@ public interface GenreService {
 	}
 	
 	//CommandLineRunner --> para correr el codigo al arranque, es una interfaz utilizada para indicar que un bean debe ejecutarse cuando está contenido dentro de una SpringApplication.
-	//args--> aparece como argumento del método main, es un array de strings que debe aparecer como argumento del método main en un programa Java.Es el encargado de recoger y almacenar estos valores.
+	//args--> aparece como argumento del método main, es un array de strings que debe aparecer como argumento del método main, recoge y almacena estos valores.
 	
 }

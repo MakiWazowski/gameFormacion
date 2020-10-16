@@ -15,6 +15,7 @@ import game.app.entities.Game;
 import game.app.entities.Genre;
 import game.app.enums.GenresEnum;
 import game.app.exceptions.GameKONotFoundException;
+import game.app.exceptions.GenreNotFoundException;
 import game.app.exceptions.generic.GameKOException;
 import game.app.helper.GameHelper;
 import game.app.repositories.GameRepository;
@@ -36,8 +37,8 @@ public class GenreServiceImpl implements GenreService{
 		if (genre.isPresent()) {
 			return genre.get();
 		}
-		//aqui retorna una excepcion de genero si no existe
-		return null;
+		//aqui retorna una excepcion de genero si no existe-->  revisar GenreNotFoundException
+		throw new GenreNotFoundException();
 	}
 
 

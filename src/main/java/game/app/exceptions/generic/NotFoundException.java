@@ -2,8 +2,6 @@ package game.app.exceptions.generic;
 
 public class NotFoundException extends RuntimeException{
 	
-	
-	
 	private static final long serialVersionUID = 1L;
 	private final String detalle;
 	

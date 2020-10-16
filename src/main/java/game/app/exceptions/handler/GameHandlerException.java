@@ -1,11 +1,8 @@
 package game.app.exceptions.handler;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import game.app.dtos.GameErrorDto;
 import game.app.exceptions.generic.GameKOException;
 import game.app.exceptions.generic.NoContentException;
 import game.app.exceptions.generic.NotFoundException;
-
-
 
 @ControllerAdvice
 public class GameHandlerException extends ResponseEntityExceptionHandler {

@@ -1,7 +1,6 @@
 package game.app.convert;
 
 import org.springframework.core.convert.converter.Converter;
-
 import game.app.dtos.request.GameDto;
 import game.app.entities.Game;
 

@@ -1,9 +1,6 @@
 package game.app.convert;
 
-import java.util.List;
-
 import org.springframework.core.convert.converter.Converter;
-
 import game.app.entities.Genre;
 import game.app.enums.GenresEnum;
 

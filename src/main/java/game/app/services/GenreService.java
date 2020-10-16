@@ -14,15 +14,19 @@ public interface GenreService {
 	
 	public Genre findGenreByName(GenresEnum genre);
 	
-	//PARA CARGAR LOS GENEROS --> coge los egenros del enum y los va añadiendo a la bbdd 
+	//PARA CARGAR LOS GENEROS --> coge los generos del enum y los va añadiendo a la bbdd 
 	public static CommandLineRunner loadGenres(GenreRepository genreRepo) {
 		System.out.println("Cargando con CommandLineRunner");
+		//conversor de generos
 		GenreRequestToGenreConverter genreEnumToGenre = new GenreRequestToGenreConverter();
+		//creamos lista 
 		List<Genre> genre = new ArrayList<>();
+		//va añadiendo los generos hasta que no queda ninguno
 		for(int i=0; i< GenresEnum.values().length; i++) {
 			genre.add(genreEnumToGenre.convert(GenresEnum.values()[i]));
 		}
 		
+		//guarda los generos añadidos
 		return args -> {
 			genreRepo.saveAll(genre);
 		};

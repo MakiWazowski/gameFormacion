@@ -29,11 +29,11 @@ public class GenreServiceImpl implements GenreService{
 	@Autowired
 	private GenreRepository genreRepository;
 	
-	
+	//PARA ENCONTRAR EN GENERO POR NOMBRE
 	@Override
 	public Genre findGenreByName(GenresEnum genreEnum) {
 		Optional<Genre> genre = genreRepository.findByGenreName(genreEnum);
-		
+		//coger el genero si existe
 		if (genre.isPresent()) {
 			return genre.get();
 		}

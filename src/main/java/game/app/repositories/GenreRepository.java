@@ -11,4 +11,5 @@ import game.app.enums.GenresEnum;
 public interface GenreRepository extends JpaRepository<Genre, Long>{
 
 	public Optional<Genre> findByGenreName(GenresEnum genre);
+	
 }

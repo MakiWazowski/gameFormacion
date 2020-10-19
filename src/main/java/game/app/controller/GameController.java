@@ -28,7 +28,6 @@ public class GameController {
 	}
 
 	
-	//hay que arreglarlo para que en vez de guardar el genero , lo busque
 	//POST REQUEST BODY y GUARDAR JUEGO EN LISTA CON RESPONSE Y REQUEST
 	@PostMapping("/game")
 	public ResponseEntity<Object> addGame(@RequestBody @Valid GameDto gameRequest, HttpServletRequest request){

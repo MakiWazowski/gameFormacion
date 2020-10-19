@@ -1,10 +1,10 @@
 package game.app.exceptions;
 
-import game.app.exceptions.generic.NotFoundException;
+import game.app.exceptions.generic.GameKOException;
 
 //EXCEPCION DE GENERO NO ENCONTRADO EN LA BBDD
 
-public class GenreNotFoundException extends NotFoundException{
+public class GenreNotFoundException extends GameKOException{
 
 	private static final long serialVersionUID = 1L;
 	

@@ -3,24 +3,14 @@ package game.app.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-
-import game.app.convert.GameConverter;
-import game.app.dtos.request.GameDto;
-import game.app.dtos.response.GameResponse;
-import game.app.entities.Game;
+import game.app.convert.GenreRequestToGenreConverter;
 import game.app.entities.Genre;
 import game.app.enums.GenresEnum;
-import game.app.exceptions.GameKONotFoundException;
 import game.app.exceptions.GenreNotFoundException;
-import game.app.exceptions.generic.GameKOException;
-import game.app.helper.GameHelper;
-import game.app.repositories.GameRepository;
 import game.app.repositories.GenreRepository;
-import game.app.services.GameService;
 import game.app.services.GenreService;
 
 @Service
@@ -37,8 +27,27 @@ public class GenreServiceImpl implements GenreService{
 		if (genre.isPresent()) {
 			return genre.get();
 		}
-		//aqui retorna una excepcion de genero si no existe-->  revisar GenreNotFoundException
+		//aqui retorna una excepcion de genero si no existe
 		throw new GenreNotFoundException();
+	}
+
+	//PARA CARGAR LOS GENEROS --> coge los generos del enum y los va añadiendo a la bbdd
+	@PostConstruct
+	public void loadGenres() {
+		
+		System.out.println("Insertando generos en la bbdd");
+		//conversor de generos
+		GenreRequestToGenreConverter genreEnumToGenre = new GenreRequestToGenreConverter();
+		//creamos lista 
+		List<Genre> genres = new ArrayList<>();
+		//va añadiendo los generos hasta que no queda ninguno
+		for(int i=0; i< GenresEnum.values().length; i++) {
+			//si no esta presente se añade 
+			if(!genreRepository.findByGenreName(GenresEnum.values()[i]).isPresent()){
+				genres.add(genreEnumToGenre.convert(GenresEnum.values()[i]));
+			}
+		}
+		genreRepository.saveAll(genres);
 	}
 
 

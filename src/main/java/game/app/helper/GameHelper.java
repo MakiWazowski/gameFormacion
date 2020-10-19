@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import game.app.dtos.request.GameDto;
+import game.app.dtos.response.GameResponse;
 import game.app.entities.Game;
 import game.app.entities.Genre;
+import game.app.enums.GenresEnum;
+import game.app.services.GenreService;
 
 @Service
 public class GameHelper {
@@ -16,12 +19,20 @@ public class GameHelper {
 	@Autowired
 	private ConversionService converter;
 	
-	public Game convertGameRequestToGame(GameDto gameRequest) {;
+	@Autowired
+	private GenreService genreService;
+	
+	public Game convertGameRequestToGame(GameDto gameRequest) {
 	
 	Game game = converter.convert(gameRequest, Game.class);
-	List<Genre> genres = gameRequest.getGenre().stream().map(g->converter.convert(g, Genre.class)).collect(Collectors.toList());
+	//recorre la lista de generos y busca en la bbdd si existe el genero pedido
+	for (GenresEnum genreRequest : gameRequest.getGenre()) {
+		Genre genre = genreService.findGenreByName(genreRequest);
+		game.getGenres().add(genre);
+	}
 	
-	game.getGenres().addAll(genres);	
+	//List<Genre> genres = gameRequest.getGenre().stream().map(g->converter.convert(g, Genre.class)).collect(Collectors.toList());
+
 	return game;
 			
 	}

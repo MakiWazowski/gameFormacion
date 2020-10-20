@@ -1,12 +1,10 @@
 package game.app.services.impl;
 
-
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import game.app.dtos.request.GameDto;
 import game.app.dtos.response.GameResponse;
 import game.app.entities.Game;
@@ -14,7 +12,6 @@ import game.app.exceptions.GameKONotFoundException;
 import game.app.helper.GameHelper;
 import game.app.repositories.GameRepository;
 import game.app.services.GameService;
-import lombok.var;
 
 @Service
 @Transactional
@@ -63,9 +60,6 @@ public class GameServiceImpl implements GameService{
 
 	}
 	
-	
-// PRUEBAS ELIMINAR Y ACTUALIZAR POR TITULO 
-
 
 	//PARA ELIMINAR UN JUEGO
 	@Override
@@ -85,32 +79,27 @@ public class GameServiceImpl implements GameService{
 		
 	}
 
-	//PARA ACTUALIZAR UN JUEGO
+	//PRUEBAS METODO PARA ACTUALIZAR UN JUEGO
 	@Override
-	public GameResponse updateGame(GameDto gameDto,String title) {
+	public GameResponse updateGame(GameDto gameDto) {
 		
 		System.out.println("Actualizado juego de la bbdd");
 		
-		Optional<Game> game = gameRepository.findByTitle(title);
-		if(game.isPresent()) {
-			Game gamePedido = gameHelper.convertGameRequestToGame(gameDto);
-			gameRepository.save(gamePedido);
+		Game game = gameHelper.convertGameRequestToGame(gameDto);
+		if(game.getTitle().equals(gameDto.getTitle())) {
+			gameRepository.save(game);
 		}
 		else {
 			throw new GameKONotFoundException();
 		}
-		return converter.convert(game.get(),GameResponse.class);
+		
+		System.out.println("Juego actualizado con exito en la bbdd");
+		return new GameResponse();
 	}
 	
 	
 	//OTRAS PRUEBAS 
-//	@Override
-//	public GameResponse deleteGame(GameDto gameDto) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//
+
 //	@Override
 //	public Game updateGame(GameDto gameDto) {
 //		Game game = gameHelper.convertGameRequestToGame(gameDto);

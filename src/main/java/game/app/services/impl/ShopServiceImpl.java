@@ -4,6 +4,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import game.app.dtos.request.ShopDto;
 import game.app.dtos.response.ShopResponse;
 import game.app.entities.Shop;
@@ -13,6 +15,7 @@ import game.app.repositories.ShopRepository;
 import game.app.services.ShopService;
 
 @Service
+@Transactional
 public class ShopServiceImpl implements ShopService{
 
 	
@@ -51,6 +54,25 @@ public class ShopServiceImpl implements ShopService{
 			throw new GameKONotFoundException();
 		}
 
+	}
+	
+	//PARA ELIMINAR UNA TIENDA
+	@Override
+	public ShopResponse deleteShop(Long id) {
+		
+		System.out.println("Eliminando tienda de la bbdd");
+		
+		Optional<Shop> shop = shopRepository.findById(id);
+		if(shop.isPresent()) {
+			shopRepository.deleteById(id);
+		}
+		else {
+			//habria que crear una excepcion para tienda
+			throw new GameKONotFoundException();
+		}
+		System.out.println("Tienda eliminada con exito de la bbdd");
+		return converter.convert(shop.get(),ShopResponse.class);
+		
 	}
 
 

@@ -17,7 +17,6 @@ import game.app.dtos.request.GameDto;
 import game.app.dtos.request.ShopDto;
 import game.app.dtos.response.GameResponse;
 import game.app.dtos.response.ShopResponse;
-import game.app.entities.Game;
 import game.app.services.GameService;
 import game.app.services.ShopService;
 
@@ -47,17 +46,18 @@ public class GameController {
 	}
 	
 	
-//	// METODO DELETE GAME
-//	@DeleteMapping("/game")
-//	public ResponseEntity<Object> deleteGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
-//		GameResponse gameResponse = gameService.deleteGame(gameRequest,title);
-//		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
-//	}
-//	
-	//METODO UPDATE GAME 
+	//PRUEBAS METODO UPDATE GAME 
 	@PutMapping("/game")
-	public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
-		GameResponse gameResponse = gameService.updateGame(gameRequest,title);
+	public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest, HttpServletRequest request){
+		GameResponse gameResponse = gameService.updateGame(gameRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
+	}
+	
+	
+	//METODO DELETE GAME
+	@DeleteMapping("/game")
+	public ResponseEntity<Object> deleteGame(@RequestParam("title") String title, HttpServletRequest request){
+		GameResponse gameResponse = gameService.deleteGame(title);
 		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
 	}
 	
@@ -75,18 +75,15 @@ public class GameController {
 		ShopResponse shopResponse = shopService.addShop(shopRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(shopResponse);
 	}
-
 	
+	//METODO DELETE SHOP
+	@DeleteMapping("/shop")
+	public ResponseEntity<Object> deleteShop(@RequestParam("id") Long id, HttpServletRequest request){
+		ShopResponse shopResponse = shopService.deleteShop(id);
+		return ResponseEntity.status(HttpStatus.OK).body(shopResponse);
+	}
 
-	
-	//PRUEBA METODO DELETE
 
-		@DeleteMapping("/game")
-		public ResponseEntity<Object> deleteGame(@RequestParam("title") String title, HttpServletRequest request){
-			GameResponse gameResponse = gameService.deleteGame(title);
-			return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
-		}
-	
 /*
 	//POST REQUEST BODY y GUARDAR JUEGO EN LISTA CON SERVICE
 	@PostMapping("/game")
@@ -96,6 +93,15 @@ public class GameController {
 		return ResponseEntity.status(HttpStatus.OK).body("The game is now in the list!!");
 	}
 */
+
+/*
+	// METODO DELETE GAME PRUEBAS 
+	@DeleteMapping("/game")
+	public ResponseEntity<Object> deleteGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
+		GameResponse gameResponse = gameService.deleteGame(gameRequest,title);
+		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
+	}
+*/	
 	
 	// OTRAS OPERACIONES COMENTADAS
 	

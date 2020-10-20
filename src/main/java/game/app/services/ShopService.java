@@ -9,6 +9,8 @@ public interface ShopService {
 	
 	public ShopResponse getShop(Long id);
 
+	public ShopResponse deleteShop(Long id);
+
 
 	
 }

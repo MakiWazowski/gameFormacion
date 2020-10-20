@@ -1,12 +1,9 @@
 package game.app.helper;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import game.app.dtos.request.GameDto;
-import game.app.dtos.response.GameResponse;
 import game.app.entities.Game;
 import game.app.entities.Genre;
 import game.app.enums.GenresEnum;
@@ -27,7 +24,9 @@ public class GameHelper {
 	Game game = converter.convert(gameRequest, Game.class);
 	//recorre la lista de generos y busca en la bbdd si existe el genero pedido
 	for (GenresEnum genreRequest : gameRequest.getGenre()) {
+		//llama al genero por nombre 
 		Genre genre = genreService.findGenreByName(genreRequest);
+		//lo coge y lo añade al juego
 		game.getGenres().add(genre);
 	}
 	

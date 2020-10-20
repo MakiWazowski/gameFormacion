@@ -37,6 +37,9 @@ public class GameServiceImpl implements GameService{
 	
 	@Override
 	public GameResponse addGame(GameDto gameDto) {
+		
+		System.out.println("Añadiendo juego a la bbdd");
+		
 		//Game game = GameConverter.dtoToEntity(gameDto);
 		Game game = gameHelper.convertGameRequestToGame(gameDto);
 		gameRepository.save(game);
@@ -62,6 +65,58 @@ public class GameServiceImpl implements GameService{
 	}
 	
 	
+// PRUEBAS ELIMINAR Y ACTUALIZAR POR TITULO 
+
+	//PARA ELIMINAR UN JUEGO
+	@Override
+	public GameResponse deleteGame(GameDto gameDto,String title) {
+		
+		System.out.println("Eliminando juego de la bbdd");
+		
+		Optional<Game> game = gameRepository.findByTitle(title);
+		if(game.isPresent()) {
+			Game gamePedido = gameHelper.convertGameRequestToGame(gameDto);
+			gameRepository.delete(gamePedido);
+		}
+		else {
+			throw new GameKONotFoundException();
+		}
+		return converter.convert(game.get(),GameResponse.class);
+	}
+
+	//PARA ACTUALIZAR UN JUEGO
+	@Override
+	public GameResponse updateGame(GameDto gameDto,String title) {
+		
+		System.out.println("Actualizado juego de la bbdd");
+		
+		Optional<Game> game = gameRepository.findByTitle(title);
+		if(game.isPresent()) {
+			Game gamePedido = gameHelper.convertGameRequestToGame(gameDto);
+			gameRepository.save(gamePedido);
+		}
+		else {
+			throw new GameKONotFoundException();
+		}
+		return converter.convert(game.get(),GameResponse.class);
+	}
+	
+	
+	//OTRAS PRUEBAS 
+//	@Override
+//	public GameResponse deleteGame(GameDto gameDto) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	@Override
+//	public Game updateGame(GameDto gameDto) {
+//		Game game = gameHelper.convertGameRequestToGame(gameDto);
+//		return gameRepository.save(game);
+//	}
+//	}
+//
 	
 /*
  	//ANTES DE CREACION DE REPOSITORIO Y CONVERTER

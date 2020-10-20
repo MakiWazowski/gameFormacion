@@ -5,13 +5,16 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import game.app.dtos.request.GameDto;
 import game.app.dtos.response.GameResponse;
+import game.app.entities.Game;
 import game.app.services.GameService;
 
 @RestController
@@ -36,7 +39,19 @@ public class GameController {
 	}
 	
 	
+	//DETELE GAME
+	@DeleteMapping("/game")
+	public ResponseEntity<Object> deleteGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
+		GameResponse gameResponse = gameService.deleteGame(gameRequest,title);
+		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
+	}
 	
+	//METODO
+	@PutMapping("/game")
+	public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
+		GameResponse gameResponse = gameService.updateGame(gameRequest,title);
+		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
+	}
 	
 	
 /*

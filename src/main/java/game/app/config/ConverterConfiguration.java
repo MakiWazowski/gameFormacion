@@ -6,6 +6,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import game.app.convert.GameRequestToGameConverter;
 import game.app.convert.GameToGameResponseConverter;
 import game.app.convert.GenreRequestToGenreConverter;
+import game.app.convert.ShopRequestToShopConverter;
+import game.app.convert.ShopToShopResponseConverter;
 
 @Configuration
 public class ConverterConfiguration implements WebMvcConfigurer{
@@ -15,6 +17,8 @@ public class ConverterConfiguration implements WebMvcConfigurer{
 		registry.addConverter(new GameRequestToGameConverter());
 		registry.addConverter(new GameToGameResponseConverter());
 		registry.addConverter(new GenreRequestToGenreConverter());
+		registry.addConverter(new ShopRequestToShopConverter());
+		registry.addConverter(new ShopToShopResponseConverter());
 		
 	}
 }

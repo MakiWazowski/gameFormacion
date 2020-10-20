@@ -30,4 +30,5 @@ public class Genre {
 	//many to many para declarar el tipo de relacion
 	@ManyToMany(mappedBy = "genres")
 	private List<Game> games;
+	
 }

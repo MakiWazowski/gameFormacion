@@ -13,15 +13,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import game.app.dtos.request.GameDto;
+import game.app.dtos.request.ShopDto;
 import game.app.dtos.response.GameResponse;
+import game.app.dtos.response.ShopResponse;
 import game.app.entities.Game;
 import game.app.services.GameService;
+import game.app.services.ShopService;
 
 @RestController
 public class GameController {
 	
 	@Autowired
 	private GameService gameService;
+	
+	@Autowired
+	private ShopService shopService;
 	
 
 	//GET TITLE
@@ -39,14 +45,14 @@ public class GameController {
 	}
 	
 	
-	//DETELE GAME
+	// METODO DELETE
 	@DeleteMapping("/game")
 	public ResponseEntity<Object> deleteGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
 		GameResponse gameResponse = gameService.deleteGame(gameRequest,title);
 		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
 	}
 	
-	//METODO
+	//METODO UPDATE
 	@PutMapping("/game")
 	public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
 		GameResponse gameResponse = gameService.updateGame(gameRequest,title);
@@ -54,6 +60,31 @@ public class GameController {
 	}
 	
 	
+	//GET ID SHOP
+	@GetMapping("/shop")
+	public ResponseEntity<Object> getID(@RequestParam("id") Long id, HttpServletRequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(shopService.getShop(id));
+	}
+
+	
+	//POST REQUEST BODY y GUARDAR TIENDA EN LISTA CON RESPONSE Y REQUEST
+	@PostMapping("/shop")
+	public ResponseEntity<Object> addShop(@RequestBody @Valid ShopDto shopRequest, HttpServletRequest request){
+		ShopResponse shopResponse = shopService.addShop(shopRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(shopResponse);
+	}
+
+	
+
+/*	
+	//PRUEBA METODO UPDATE 
+
+		@PutMapping("/game")
+		public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest, HttpServletRequest request){
+			Game gameResponse = gameService.updateGame(gameRequest);
+			return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
+		}
+*/	
 /*
 	//POST REQUEST BODY y GUARDAR JUEGO EN LISTA CON SERVICE
 	@PostMapping("/game")

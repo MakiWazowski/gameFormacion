@@ -45,4 +45,8 @@ public class Game {
 	
 	@Column(name = "PRICE")
 	private Double price;
+	
+	//Añadir relacion tienda con juegos 
+	@ManyToMany(mappedBy = "games")
+	private List<Shop> shops;
 }

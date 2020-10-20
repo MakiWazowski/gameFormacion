@@ -10,9 +10,10 @@ public interface GameService {
 	
 	public GameResponse getGame(String title);
 
-	public GameResponse deleteGame(GameDto gameDto, String title);
-	//public GameResponse deleteGame(GameDto gameDto);
+	//public GameResponse deleteGame(GameDto gameDto, String title);
+	public GameResponse deleteGame(String title);
 	public GameResponse updateGame(GameDto gameDto, String title);
 	//public Game updateGame(GameDto gameDto);
+
 	
 }

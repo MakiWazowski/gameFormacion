@@ -13,5 +13,7 @@ import game.app.entities.Game;
 public interface GameRepository extends JpaRepository<Game, Long>{
 
 	public Optional<Game> findByTitle(String title);
+	
+	public Optional<Game> deleteByTitle(String title);
 
 }

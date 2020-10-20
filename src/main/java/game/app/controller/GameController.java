@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import game.app.services.GameService;
 import game.app.services.ShopService;
 
 @RestController
+@Transactional
 public class GameController {
 	
 	@Autowired
@@ -30,7 +32,7 @@ public class GameController {
 	private ShopService shopService;
 	
 
-	//GET TITLE
+	//GET TITLE GAME 
 	@GetMapping("/game")
 	public ResponseEntity<Object> getID(@RequestParam("title") String title, HttpServletRequest request){
 		return ResponseEntity.status(HttpStatus.OK).body(gameService.getGame(title));
@@ -45,14 +47,14 @@ public class GameController {
 	}
 	
 	
-	// METODO DELETE
-	@DeleteMapping("/game")
-	public ResponseEntity<Object> deleteGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
-		GameResponse gameResponse = gameService.deleteGame(gameRequest,title);
-		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
-	}
-	
-	//METODO UPDATE
+//	// METODO DELETE GAME
+//	@DeleteMapping("/game")
+//	public ResponseEntity<Object> deleteGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
+//		GameResponse gameResponse = gameService.deleteGame(gameRequest,title);
+//		return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
+//	}
+//	
+	//METODO UPDATE GAME 
 	@PutMapping("/game")
 	public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest,@RequestParam("title") String title, HttpServletRequest request){
 		GameResponse gameResponse = gameService.updateGame(gameRequest,title);
@@ -76,15 +78,15 @@ public class GameController {
 
 	
 
-/*	
-	//PRUEBA METODO UPDATE 
+	
+	//PRUEBA METODO DELETE
 
-		@PutMapping("/game")
-		public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest, HttpServletRequest request){
-			Game gameResponse = gameService.updateGame(gameRequest);
+		@DeleteMapping("/game")
+		public ResponseEntity<Object> deleteGame(@RequestParam("title") String title, HttpServletRequest request){
+			GameResponse gameResponse = gameService.deleteGame(title);
 			return ResponseEntity.status(HttpStatus.OK).body(gameResponse);
 		}
-*/	
+	
 /*
 	//POST REQUEST BODY y GUARDAR JUEGO EN LISTA CON SERVICE
 	@PostMapping("/game")

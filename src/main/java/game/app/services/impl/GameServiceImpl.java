@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import game.app.dtos.request.GameDto;
 import game.app.dtos.response.GameResponse;
 import game.app.entities.Game;
@@ -12,8 +14,10 @@ import game.app.exceptions.GameKONotFoundException;
 import game.app.helper.GameHelper;
 import game.app.repositories.GameRepository;
 import game.app.services.GameService;
+import lombok.var;
 
 @Service
+@Transactional
 public class GameServiceImpl implements GameService{
 
 
@@ -62,21 +66,23 @@ public class GameServiceImpl implements GameService{
 	
 // PRUEBAS ELIMINAR Y ACTUALIZAR POR TITULO 
 
+
 	//PARA ELIMINAR UN JUEGO
 	@Override
-	public GameResponse deleteGame(GameDto gameDto,String title) {
+	public GameResponse deleteGame(String title) {
 		
 		System.out.println("Eliminando juego de la bbdd");
 		
 		Optional<Game> game = gameRepository.findByTitle(title);
 		if(game.isPresent()) {
-			Game gamePedido = gameHelper.convertGameRequestToGame(gameDto);
-			gameRepository.delete(gamePedido);
+			gameRepository.deleteByTitle(title);
 		}
 		else {
 			throw new GameKONotFoundException();
 		}
+		System.out.println("Juego eliminado con exito de la bbdd");
 		return converter.convert(game.get(),GameResponse.class);
+		
 	}
 
 	//PARA ACTUALIZAR UN JUEGO

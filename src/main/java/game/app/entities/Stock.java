@@ -1,5 +1,6 @@
 package game.app.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,15 +21,15 @@ public class Stock {
 	private Long id;
 	
 	@Column(name = "CANTIDAD")
-	private Long cantidad;
+	private Integer cantidad;
 
 	
 	//RELACIONES STOCK CON TIENDA Y JUEGO
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="shop")
 	Shop shop;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="game")
 	//@Relation(parentColumn = "title", entityColumn = "game")
 	Game game;

@@ -48,6 +48,6 @@ public class Game {
 	private Double price;
 	
 	//relacion juego con stock 
-	@OneToMany(mappedBy = "game")
+	@OneToMany(mappedBy = "game",cascade=CascadeType.ALL)
 	private List<Stock> stocks;
 }

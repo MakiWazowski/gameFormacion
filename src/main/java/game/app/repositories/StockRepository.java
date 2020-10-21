@@ -11,6 +11,8 @@ import game.app.entities.Stock;
 public interface StockRepository extends JpaRepository<Stock, Long>{
 
 	public Optional<Stock> findById(Long id);
+	
+	public Optional<Stock> findByGameTitle(String title);
 
 	
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 public class StockResponse {
 
 	
-	private Long cantidad;
+	private Integer cantidad;
 	private Shop shop;
 	private Game game;
 

@@ -85,14 +85,17 @@ public class GameServiceImpl implements GameService{
 		
 		System.out.println("Actualizado juego de la bbdd");
 		
-		Game game = gameHelper.convertGameRequestToGame(gameDto);
-		if(game.getTitle().equals(gameDto.getTitle())) {
-			gameRepository.save(game);
-		}
-		else {
-			throw new GameKONotFoundException();
-		}
+		//Game game = gameHelper.convertGameRequestToGame(gameDto);
+		Optional<Game> optionalGame = gameRepository.findByTitle(gameDto.getTitle());
+		System.out.println(optionalGame.get().getTitle());
 		
+		optionalGame.get().setPrice(gameDto.getPrice());
+		optionalGame.get().setDescription(gameDto.getDescription());
+		optionalGame.get().setRelease(gameDto.getRelease());
+		
+		Game game = gameRepository.saveAndFlush(optionalGame.get());
+		
+		System.out.println(game.getDescription());
 		System.out.println("Juego actualizado con exito en la bbdd");
 		return new GameResponse();
 	}

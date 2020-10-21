@@ -33,11 +33,20 @@ public class StockServiceImpl implements StockService{
 	@Override
 	public StockResponse addStock(StockDto stockDto) {
 		
-		System.out.println("Añadiendo tienda a la bbdd");
+		System.out.println("Añadiendo stock a la bbdd");
+		Optional<Stock> game = stockRepository.findByGameTitle(stockDto.getGame().getTitle());
 		
-		Stock stock = stockHelper.convertStockRequestToStock(stockDto);
-		stockRepository.save(stock);
+		if(!game.isPresent()) {
+			Stock stock = stockHelper.convertStockRequestToStock(stockDto);
+			stockRepository.save(stock);
+			return new StockResponse();
+		}
+		game.get().setCantidad(stockDto.getCantidad());
+		
+		stockRepository.saveAndFlush(game.get());
+		
 		return new StockResponse();
+		
 	}
 	
 	

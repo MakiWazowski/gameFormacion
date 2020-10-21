@@ -8,6 +8,8 @@ import game.app.convert.GameToGameResponseConverter;
 import game.app.convert.GenreRequestToGenreConverter;
 import game.app.convert.ShopRequestToShopConverter;
 import game.app.convert.ShopToShopResponseConverter;
+import game.app.convert.StockRequestToStockConverter;
+import game.app.convert.StockToStockResponseConverter;
 
 @Configuration
 public class ConverterConfiguration implements WebMvcConfigurer{
@@ -19,6 +21,8 @@ public class ConverterConfiguration implements WebMvcConfigurer{
 		registry.addConverter(new GenreRequestToGenreConverter());
 		registry.addConverter(new ShopRequestToShopConverter());
 		registry.addConverter(new ShopToShopResponseConverter());
+		registry.addConverter(new StockRequestToStockConverter());
+		registry.addConverter(new StockToStockResponseConverter());
 		
 	}
 }

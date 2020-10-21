@@ -20,7 +20,7 @@ public class Stock {
 	private Long id;
 	
 	@Column(name = "CANTIDAD")
-	private String cantidad;
+	private Long cantidad;
 
 	
 	//RELACIONES STOCK CON TIENDA Y JUEGO
@@ -30,6 +30,9 @@ public class Stock {
 	
 	@ManyToOne
 	@JoinColumn(name="game")
+	//@Relation(parentColumn = "title", entityColumn = "game")
 	Game game;
+	
+	
 
 }

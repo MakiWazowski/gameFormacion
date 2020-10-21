@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import game.app.dtos.request.GameDto;
 import game.app.dtos.request.ShopDto;
+import game.app.dtos.request.StockDto;
 import game.app.dtos.response.GameResponse;
 import game.app.dtos.response.ShopResponse;
+import game.app.dtos.response.StockResponse;
 import game.app.services.GameService;
 import game.app.services.ShopService;
+import game.app.services.StockService;
 
 @RestController
 @Transactional
@@ -30,15 +33,18 @@ public class GameController {
 	@Autowired
 	private ShopService shopService;
 	
+	@Autowired
+	private StockService stockService;
+	
 
-	//GET TITLE GAME 
+	//GET GAME POR TITULO
 	@GetMapping("/game")
 	public ResponseEntity<Object> getID(@RequestParam("title") String title, HttpServletRequest request){
 		return ResponseEntity.status(HttpStatus.OK).body(gameService.getGame(title));
 	}
 
 	
-	//POST REQUEST BODY y GUARDAR JUEGO EN LISTA CON RESPONSE Y REQUEST
+	//METODO GUARDAR JUEGO EN LISTA CON RESPONSE Y REQUEST
 	@PostMapping("/game")
 	public ResponseEntity<Object> addGame(@RequestBody @Valid GameDto gameRequest, HttpServletRequest request){
 		GameResponse gameResponse = gameService.addGame(gameRequest);
@@ -62,14 +68,14 @@ public class GameController {
 	}
 	
 	
-	//GET ID SHOP
+	//GET SHOP POR ID
 	@GetMapping("/shop")
 	public ResponseEntity<Object> getID(@RequestParam("id") Long id, HttpServletRequest request){
 		return ResponseEntity.status(HttpStatus.OK).body(shopService.getShop(id));
 	}
 
 	
-	//POST REQUEST BODY y GUARDAR TIENDA EN LISTA CON RESPONSE Y REQUEST
+	//METODO GUARDAR SHOP 
 	@PostMapping("/shop")
 	public ResponseEntity<Object> addShop(@RequestBody @Valid ShopDto shopRequest, HttpServletRequest request){
 		ShopResponse shopResponse = shopService.addShop(shopRequest);
@@ -81,6 +87,28 @@ public class GameController {
 	public ResponseEntity<Object> deleteShop(@RequestParam("id") Long id, HttpServletRequest request){
 		ShopResponse shopResponse = shopService.deleteShop(id);
 		return ResponseEntity.status(HttpStatus.OK).body(shopResponse);
+	}
+
+	
+	//GET STOCK POR ID
+	@GetMapping("/stock")
+	public ResponseEntity<Object> getStockID(@RequestParam("id") Long id, HttpServletRequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(stockService.getStock(id));
+	}
+
+	
+	//METODO GUARDAR STOCK
+	@PostMapping("/stock")
+	public ResponseEntity<Object> addStock(@RequestBody @Valid StockDto stockRequest, HttpServletRequest request){
+		StockResponse stockResponse = stockService.addStock(stockRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(stockResponse);
+	}
+	
+	//METODO DELETE STOCK
+	@DeleteMapping("/stock")
+	public ResponseEntity<Object> deleteStock(@RequestParam("id") Long id, HttpServletRequest request){
+		StockResponse stockResponse = stockService.deleteStock(id);
+		return ResponseEntity.status(HttpStatus.OK).body(stockResponse);
 	}
 
 

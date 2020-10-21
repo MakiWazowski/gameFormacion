@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,7 +47,7 @@ public class Game {
 	@Column(name = "PRICE")
 	private Double price;
 	
-	//Añadir relacion tienda con juegos 
-	@ManyToMany(mappedBy = "games")
-	private List<Shop> shops;
+	//relacion juego con stock 
+	@OneToMany(mappedBy = "game")
+	private List<Stock> stocks;
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -27,12 +28,10 @@ public class Shop {
 	
 	@Column(name = "CP")
 	private int codigoPostal;
-	
-	//cascade para poder controlar updates,deletes...
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST , CascadeType.MERGE})
-	private List<Game> games = new ArrayList<>();
-	
-//hay que cambiar el many to many por una tabla creada a mano , ya que hay que añadir un atributo cantidad a la tabla de relacion
 
+	//relacion tienda con stock
+	@OneToMany(mappedBy="shop")
+	private List<Stock> stocks = new ArrayList<>();
+	
 
 }

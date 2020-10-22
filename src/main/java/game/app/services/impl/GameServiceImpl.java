@@ -37,8 +37,16 @@ public class GameServiceImpl implements GameService{
 		System.out.println("Añadiendo juego a la bbdd");
 		
 		//Game game = GameConverter.dtoToEntity(gameDto);
-		Game game = gameHelper.convertGameRequestToGame(gameDto);
-		gameRepository.save(game);
+		Game gameNew = gameHelper.convertGameRequestToGame(gameDto);
+		Optional<Game> updatedGame = gameRepository.findByTitle(gameDto.getTitle());
+
+		if(updatedGame.isPresent()) {
+			Game game = gameRepository.saveAndFlush(updatedGame.get());
+			System.out.println(game.getTitle());
+			return new GameResponse();
+		}
+		
+		gameRepository.save(gameNew);
 		return new GameResponse();
 	}
 	
@@ -86,14 +94,14 @@ public class GameServiceImpl implements GameService{
 		System.out.println("Actualizado juego de la bbdd");
 		
 		//Game game = gameHelper.convertGameRequestToGame(gameDto);
-		Optional<Game> optionalGame = gameRepository.findByTitle(gameDto.getTitle());
-		System.out.println(optionalGame.get().getTitle());
+		Optional<Game> updatedGame = gameRepository.findByTitle(gameDto.getTitle());
+		System.out.println(updatedGame.get().getTitle());
 		
-		optionalGame.get().setPrice(gameDto.getPrice());
-		optionalGame.get().setDescription(gameDto.getDescription());
-		optionalGame.get().setRelease(gameDto.getRelease());
+		updatedGame.get().setPrice(gameDto.getPrice());
+		updatedGame.get().setDescription(gameDto.getDescription());
+		updatedGame.get().setRelease(gameDto.getRelease());
 		
-		Game game = gameRepository.saveAndFlush(optionalGame.get());
+		Game game = gameRepository.saveAndFlush(updatedGame.get());
 		
 		System.out.println(game.getDescription());
 		System.out.println("Juego actualizado con exito en la bbdd");

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import game.app.dtos.request.ShopDto;
+import game.app.dtos.response.GameResponse;
 import game.app.dtos.response.ShopResponse;
+import game.app.entities.Game;
 import game.app.entities.Shop;
 import game.app.exceptions.GameKONotFoundException;
 import game.app.helper.ShopHelper;
@@ -36,8 +38,18 @@ public class ShopServiceImpl implements ShopService{
 		
 		System.out.println("Añadiendo tienda a la bbdd");
 		
-		Shop shop = shopHelper.convertShopRequestToShop(shopDto);
-		shopRepository.save(shop);
+		Shop shopNew = shopHelper.convertShopRequestToShop(shopDto);
+		
+		Optional<Shop> updatedShop = shopRepository.findByDireccion(shopDto.getDireccion());
+
+		if(updatedShop.isPresent()) {
+			System.out.println("Ya existe esta tienda en la bbdd");
+			Shop shop = shopRepository.saveAndFlush(updatedShop.get());
+			System.out.println(shop.getDireccion());
+			return new ShopResponse();
+		}
+		System.out.println("Añadida la tienda en la bbdd");
+		shopRepository.save(shopNew);
 		return new ShopResponse();
 	}
 	

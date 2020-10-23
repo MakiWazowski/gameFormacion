@@ -9,7 +9,10 @@ public interface StockService {
 	
 	public StockResponse getStock(Long id);
 
-	public StockResponse deleteStock(Long id);
+	//public StockResponse deleteStock(Long id);
+
+	//usaremos el update para poner el stock a 0 en vez de eliminarlo
+	public StockResponse updateStock(StockDto stockDto);
 
 
 	

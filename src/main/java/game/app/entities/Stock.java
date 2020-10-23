@@ -21,7 +21,7 @@ public class Stock {
 	private Long id;
 	
 	@Column(name = "CANTIDAD")
-	private Integer cantidad;
+	private Double cantidad;
 
 	
 	//RELACIONES STOCK CON TIENDA Y JUEGO

@@ -7,9 +7,13 @@ import lombok.Data;
 @Data
 public class StockDto {
 
-	private Integer cantidad;
+	private Long id;
+	private Double cantidad;
 	private Shop shop;
 	private Game game;
+
+	
+
 
 	
 }

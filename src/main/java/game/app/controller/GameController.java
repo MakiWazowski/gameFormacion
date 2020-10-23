@@ -52,7 +52,7 @@ public class GameController {
 	}
 	
 	
-	//PRUEBAS METODO UPDATE GAME 
+	//METODO UPDATE GAME 
 	@PutMapping("/game")
 	public ResponseEntity<Object> updateGame(@RequestBody @Valid GameDto gameRequest, HttpServletRequest request){
 		GameResponse gameResponse = gameService.updateGame(gameRequest);
@@ -104,11 +104,15 @@ public class GameController {
 		return ResponseEntity.status(HttpStatus.OK).body(stockResponse);
 	}
 	
-	//METODO DELETE STOCK
-	@DeleteMapping("/stock")
-	public ResponseEntity<Object> deleteStock(@RequestParam("id") Long id, HttpServletRequest request){
-		StockResponse stockResponse = stockService.deleteStock(id);
-		return ResponseEntity.status(HttpStatus.OK).body(stockResponse);
+	//METODO UPDATE STOCK
+	@PutMapping("/stock")
+	public ResponseEntity<Object> updateStock(@RequestBody @Valid StockDto stockRequest, HttpServletRequest request){
+		StockResponse stockResponse = stockService.updateStock(stockRequest);
+		if(stockResponse.getCantidad().equals("0")) {
+			return ResponseEntity.status(HttpStatus.OK).body("Ya no hay stock de este juego");
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(stockResponse);
+		}
 	}
 
 

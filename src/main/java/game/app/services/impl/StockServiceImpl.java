@@ -63,27 +63,57 @@ public class StockServiceImpl implements StockService{
 		}
 
 	}
-	
-	//PARA ELIMINAR UN STOCK
+		
+	//UPDATE DE STOCK PRUEBAS
 	@Override
-	public StockResponse deleteStock(Long id) {
+	public StockResponse updateStock(StockDto stockDto) {
 		
-		System.out.println("Eliminando tienda de la bbdd");
+		System.out.println("Actualizando el stock de la bbdd");
 		
-		Optional<Stock> stock = stockRepository.findById(id);
-		if(stock.isPresent()) {
-			stockRepository.deleteById(id);
+		Optional<Stock> updatedStock = stockRepository.findById(stockDto.getId());
+		
+		if(updatedStock.isPresent()) {
+			updatedStock.get().setCantidad(stockDto.getCantidad());
+			
+			Stock stock = stockRepository.saveAndFlush(updatedStock.get());
+			System.out.println(stock.getCantidad());
+			
+			if(stock.getCantidad().equals("0")) {
+				System.out.println("No queda este stock");
+			}
 		}
 		else {
-			//habria que crear una excepcion para tienda
+			//habria que crear una excepcion para stock
 			throw new GameKONotFoundException();
 		}
-		System.out.println("Tienda eliminada con exito de la bbdd");
-		return converter.convert(stock.get(),StockResponse.class);
+		
+		System.out.println("Stock actualizado con exito de la bbdd");
+		return converter.convert(updatedStock.get(),StockResponse.class);
 		
 	}
 
 
 
-
+	/*	//PARA ELIMINAR UN STOCK -->el problema es que elimina la tienda y el juego asociado tambien
+	//abria que ponerlo para que en vez de eliminarlo , dejase el stock a 0.
+	@Override
+	public StockResponse deleteStock(Long id) {
+		
+		System.out.println("Dejando en 0 el stock de la bbdd");
+		
+		Optional<Stock> stock = stockRepository.findById(id);
+		if(stock.isPresent()) {
+			Stock updatedStock = stockRepository.saveAndFlush(stock.get());
+			//updatedStock.getCantidad().equals("0"); -->comprobar
+			//stockRepository.deleteById(id);
+		}
+		else {
+			//habria que crear una excepcion para tienda
+			throw new GameKONotFoundException();
+		}
+		System.out.println("Stock en 0 con exito de la bbdd");
+		return converter.convert(stock.get(),StockResponse.class);
+		
+	}
+*/
 }

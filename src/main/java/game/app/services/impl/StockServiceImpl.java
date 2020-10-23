@@ -35,8 +35,10 @@ public class StockServiceImpl implements StockService{
 		
 		System.out.println("Añadiendo stock a la bbdd");
 		Optional<Stock> game = stockRepository.findByGameTitle(stockDto.getGame().getTitle());
+		//Optional<Stock> shop = stockRepository.findByShopDireccion(stockDto.getShop().getDireccion());
 		
-		if(!game.isPresent()) {
+		//hay que arreglarlo, por que si existe el juego , aun que sea otra tienda no lo guarda
+		if(!game.isPresent() /*&& !shop.isPresent()*/) {
 			Stock stock = stockHelper.convertStockRequestToStock(stockDto);
 			stockRepository.save(stock);
 			return new StockResponse();

@@ -14,5 +14,7 @@ public interface StockRepository extends JpaRepository<Stock, Long>{
 	
 	public Optional<Stock> findByGameTitle(String title);
 
+	public Optional<Stock> findByShopDireccion(String direccion);
+
 	
 }

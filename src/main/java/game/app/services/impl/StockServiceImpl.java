@@ -34,11 +34,17 @@ public class StockServiceImpl implements StockService{
 	public StockResponse addStock(StockDto stockDto) {
 		
 		System.out.println("Añadiendo stock a la bbdd");
-		Optional<Stock> game = stockRepository.findByGameTitle(stockDto.getGame().getTitle());
-		//Optional<Stock> shop = stockRepository.findByShopDireccion(stockDto.getShop().getDireccion());
+		Optional<Stock> newStock = stockRepository.findById(stockDto.getId());
 		
-		//hay que arreglarlo, por que si existe el juego , aun que sea otra tienda no lo guarda
-		if(!game.isPresent() /*&& !shop.isPresent()*/) {
+		Optional<Stock> game = stockRepository.findByGameTitle(stockDto.getGame().getTitle());
+		Optional<Stock> shop = stockRepository.findByShopDireccion(stockDto.getShop().getDireccion());
+		
+		//hay que arreglarlo, por que si existe el juego , aun que sea otra tienda no lo guarda y viceversa
+		if(!game.isPresent() && !shop.isPresent()) {
+		
+		//intentando por el id de stock -->si lo hago asi , al hacer un nuevo id con el mismo juego , me lo duplica e igual con la tienda
+		//if(!newStock.isPresent()) {
+		
 			Stock stock = stockHelper.convertStockRequestToStock(stockDto);
 			stockRepository.save(stock);
 			return new StockResponse();

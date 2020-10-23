@@ -87,7 +87,7 @@ public class GameServiceImpl implements GameService{
 		
 	}
 
-	//PRUEBAS METODO PARA ACTUALIZAR UN JUEGO
+	//METODO PARA ACTUALIZAR UN JUEGO
 	@Override
 	public GameResponse updateGame(GameDto gameDto) {
 		
